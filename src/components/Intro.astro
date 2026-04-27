@@ -5,6 +5,12 @@ import { site } from "../content/site";
 <header class="intro">
   <h1>{site.name}</h1>
   <p class="role">{site.role} · {site.location}</p>
+  {site.status && (
+    <p class="status">
+      <span class="dot" aria-hidden="true"></span>
+      {site.status}
+    </p>
+  )}
   <div class="bio">
     {site.intro.map((line) => <p>{line}</p>)}
   </div>

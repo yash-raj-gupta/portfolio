@@ -9,7 +9,7 @@ import { site } from "../content/site";
       {site.experience.map((e) => (
         <li>
           <div class="exp-head">
-            <span class="exp-role">{e.role} · {e.company}</span>
+            <span><span class="exp-role">{e.role}</span> <span class="exp-company">· {e.company}</span></span>
             <span class="exp-period">{e.period}</span>
           </div>
           <p>{e.summary}</p>

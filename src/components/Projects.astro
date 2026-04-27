@@ -10,8 +10,8 @@ import { site } from "../content/site";
         <li class="project">
           <div class="project-head">
             {p.href ? (
-              <a href={p.href} class="project-name">
-                {p.name} <span class="arrow">→</span>
+              <a href={p.href} class="project-name" target="_blank" rel="noreferrer">
+                {p.name} <span class="arrow ext">↗</span>
               </a>
             ) : (
               <span class="project-name">{p.name}</span>
@@ -20,7 +20,9 @@ import { site } from "../content/site";
           </div>
           <p class="project-desc">{p.description}</p>
           {p.tech.length > 0 && (
-            <p class="project-tech">{p.tech.join(" · ")}</p>
+            <ul class="tags project-tags">
+              {p.tech.map((t) => <li class="tag">{t}</li>)}
+            </ul>
           )}
         </li>
       ))}

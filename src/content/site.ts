@@ -12,6 +12,9 @@ export const site = {
   role: "Software Development Engineer",
   location: "Bengaluru, India",
 
+  // small status line under role; set to "" to hide the dot + line
+  status: "Open to opportunities",
+
   // browser tab + meta description
   meta: {
     title: "Yash Raj Gupta — Software Development Engineer",

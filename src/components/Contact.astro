@@ -2,11 +2,11 @@
 import { site } from "../content/site";
 
 const links = [
-  { label: "Email",    href: site.links.email ? `mailto:${site.links.email}` : "", show: !!site.links.email },
-  { label: "GitHub",   href: site.links.github,   show: !!site.links.github },
-  { label: "LinkedIn", href: site.links.linkedin, show: !!site.links.linkedin },
-  { label: "Twitter",  href: site.links.twitter,  show: !!site.links.twitter },
-  { label: "Résumé",   href: site.links.resume,   show: !!site.links.resume },
+  { label: "Email",    href: site.links.email ? `mailto:${site.links.email}` : "", show: !!site.links.email, external: false },
+  { label: "GitHub",   href: site.links.github,   show: !!site.links.github,   external: true  },
+  { label: "LinkedIn", href: site.links.linkedin, show: !!site.links.linkedin, external: true  },
+  { label: "Twitter",  href: site.links.twitter,  show: !!site.links.twitter,  external: true  },
+  { label: "Résumé",   href: site.links.resume,   show: !!site.links.resume,   external: false },
 ].filter((l) => l.show);
 ---
 
@@ -16,8 +16,15 @@ const links = [
     <ul class="links">
       {links.map((l) => (
         <li>
-          <a href={l.href}>
-            {l.label} <span class="arrow">→</span>
+          <a
+            href={l.href}
+            target={l.external ? "_blank" : undefined}
+            rel={l.external ? "noreferrer" : undefined}
+          >
+            {l.label}
+            {l.external
+              ? <span class="arrow ext">↗</span>
+              : <span class="arrow fwd">→</span>}
           </a>
         </li>
       ))}
