@@ -1,0 +1,12 @@
+---
+import { site } from "../content/site";
+---
+
+{site.achievements.length > 0 && (
+  <section class="section">
+    <h2>Achievements</h2>
+    <ul class="achievements">
+      {site.achievements.map((a) => <li>{a}</li>)}
+    </ul>
+  </section>
+)}

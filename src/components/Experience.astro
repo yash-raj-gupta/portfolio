@@ -1,0 +1,20 @@
+---
+import { site } from "../content/site";
+---
+
+{site.experience.length > 0 && (
+  <section class="section">
+    <h2>Experience</h2>
+    <ul class="experience">
+      {site.experience.map((e) => (
+        <li>
+          <div class="exp-head">
+            <span class="exp-role">{e.role} · {e.company}</span>
+            <span class="exp-period">{e.period}</span>
+          </div>
+          <p>{e.summary}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

@@ -1,0 +1,29 @@
+---
+import { site } from "../content/site";
+---
+
+{site.projects.length > 0 && (
+  <section class="section">
+    <h2>Projects</h2>
+    <ul class="projects">
+      {site.projects.map((p) => (
+        <li class="project">
+          <div class="project-head">
+            {p.href ? (
+              <a href={p.href} class="project-name">
+                {p.name} <span class="arrow">→</span>
+              </a>
+            ) : (
+              <span class="project-name">{p.name}</span>
+            )}
+            <span class="project-year">{p.year}</span>
+          </div>
+          <p class="project-desc">{p.description}</p>
+          {p.tech.length > 0 && (
+            <p class="project-tech">{p.tech.join(" · ")}</p>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

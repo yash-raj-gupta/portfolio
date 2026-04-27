@@ -1,0 +1,178 @@
+/* ─── design tokens — tweak here to reskin the whole site ─── */
+:root {
+  --bg: #fafaf9;
+  --fg: #18181b;
+  --muted: #71717a;
+  --rule: #e4e4e7;
+
+  --max-width: 640px;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --fg: #f4f4f5;
+    --muted: #a1a1aa;
+    --rule: #27272a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 1.5rem 6rem;
+}
+
+/* ─── typography ─── */
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+p { margin: 0 0 0.75rem; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: border-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--fg); }
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.15s ease;
+  margin-left: 0.15rem;
+}
+a:hover .arrow { transform: translateX(2px); }
+
+/* ─── intro ─── */
+.intro .role {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+.intro .bio p:last-child { margin-bottom: 0; }
+
+/* ─── sections ─── */
+.section { margin-top: 4rem; }
+
+.projects, .experience, .links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ─── projects ─── */
+.project {
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--rule);
+}
+.project:last-child { border-bottom: 1px solid var(--rule); }
+
+.project-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+.project-name {
+  font-weight: 500;
+  border: none;
+}
+.project-name:hover { border: none; }
+.project-year {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.project-desc {
+  margin: 0 0 0.35rem;
+}
+.project-tech {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ─── experience ─── */
+.experience li {
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--rule);
+}
+.experience li:last-child { border-bottom: 1px solid var(--rule); }
+.exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+.exp-role { font-weight: 500; }
+.exp-period {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.experience p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ─── achievements ─── */
+.achievements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.achievements li {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--rule);
+}
+.achievements li:last-child { border-bottom: 1px solid var(--rule); }
+
+/* ─── skills ─── */
+.skills {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ─── contact ─── */
+.links li { margin-bottom: 0.4rem; }
+.links li:last-child { margin-bottom: 0; }
+
+/* ─── small screens ─── */
+@media (max-width: 480px) {
+  main { padding: 3rem 1.25rem 4rem; }
+  .project-head, .exp-head { flex-direction: column; gap: 0.1rem; }
+}

@@ -1,0 +1,26 @@
+---
+import { site } from "../content/site";
+
+const links = [
+  { label: "Email",    href: site.links.email ? `mailto:${site.links.email}` : "", show: !!site.links.email },
+  { label: "GitHub",   href: site.links.github,   show: !!site.links.github },
+  { label: "LinkedIn", href: site.links.linkedin, show: !!site.links.linkedin },
+  { label: "Twitter",  href: site.links.twitter,  show: !!site.links.twitter },
+  { label: "Résumé",   href: site.links.resume,   show: !!site.links.resume },
+].filter((l) => l.show);
+---
+
+{links.length > 0 && (
+  <section class="section">
+    <h2>Contact</h2>
+    <ul class="links">
+      {links.map((l) => (
+        <li>
+          <a href={l.href}>
+            {l.label} <span class="arrow">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

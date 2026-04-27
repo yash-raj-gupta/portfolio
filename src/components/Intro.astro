@@ -1,0 +1,11 @@
+---
+import { site } from "../content/site";
+---
+
+<header class="intro">
+  <h1>{site.name}</h1>
+  <p class="role">{site.role} · {site.location}</p>
+  <div class="bio">
+    {site.intro.map((line) => <p>{line}</p>)}
+  </div>
+</header>
