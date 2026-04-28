@@ -61,8 +61,9 @@ const socials = [
       <div class="topbar-inner">
         <a href="#top" class="brand" aria-label="Back to top">
           <span class="monogram">{initials}</span>
-          <span>{site.name}</span>
+          <span class="brand-text">{site.name}</span>
         </a>
+        <div class="topbar-spacer" aria-hidden="true"></div>
         <nav class="nav-mobile-wrap" aria-label="Sections">
           <ul class="nav-mobile">
             {navItems.map((n) => (
