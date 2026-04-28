@@ -39,7 +39,7 @@ const socials = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Sacramento&display=swap"
       rel="stylesheet"
     />
 
@@ -59,9 +59,19 @@ const socials = [
   <body>
     <header class="topbar" id="topbar">
       <div class="topbar-inner">
-        <a href="#top" class="brand" aria-label="Back to top">
-          <span class="monogram">{initials}</span>
-          <span class="brand-text">{site.name}</span>
+        <a href="#top" class="brand" aria-label={`${site.name} — back to top`}>
+          <svg class="signature" viewBox="0 0 124 38" aria-hidden="true">
+            <text x="2" y="26" class="signature-text">Yash Raj</text>
+            <path
+              class="signature-flourish"
+              d="M 4 32 C 24 36, 48 28, 70 32 S 110 30, 120 33"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.1"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="visually-hidden">{site.name}</span>
         </a>
         <div class="topbar-spacer" aria-hidden="true"></div>
         <nav class="nav-mobile-wrap" aria-label="Sections">

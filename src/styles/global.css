@@ -110,20 +110,53 @@ body {
   color: var(--fg);
 }
 .brand:hover { color: var(--accent); border: none; }
-.monogram {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
-  border: 1px solid var(--rule-strong);
-  border-radius: 999px;
-  background: var(--paper);
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* signature mark in the topbar */
+.signature {
+  display: inline-block;
+  height: 1.95rem;
+  width: auto;
   color: var(--fg);
+  overflow: visible;
+  transition: color 0.18s ease;
+}
+.brand:hover .signature { color: var(--accent); }
+.signature-text {
+  font-family: "Sacramento", "Caveat", cursive;
+  font-size: 26px;
+  fill: currentColor;
+  letter-spacing: 0;
+}
+.signature-flourish {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  opacity: 0.6;
+}
+
+@keyframes signatureWrite {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes flourishDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .signature-text {
+    animation: signatureWrite 1.25s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
+  }
+  html.js .signature-flourish {
+    animation: flourishDraw 0.8s cubic-bezier(0.65, 0, 0.35, 1) 1.15s both;
+  }
 }
 .topbar-spacer { flex: 1; }
 .topbar .nav-mobile {
@@ -680,7 +713,6 @@ a:hover .arrow.fwd { transform: translateX(3px); }
 @media (max-width: 919px) {
   .topbar { display: block; }
   .brand { white-space: nowrap; min-width: 0; overflow: hidden; }
-  .brand-text { overflow: hidden; text-overflow: ellipsis; }
 }
 
 /* tablet-ish: shrink nav so it fits */
@@ -693,10 +725,9 @@ a:hover .arrow.fwd { transform: translateX(3px); }
 @media (max-width: 640px) {
   :root { --gutter: 1.25rem; }
   .topbar-inner { padding: 0.6rem var(--gutter); gap: 0.6rem; }
-  .brand-text { display: none; }
   .topbar .nav-mobile { display: none; }
   .topbar-spacer { flex: 1; }
-  .monogram { width: 1.85rem; height: 1.85rem; font-size: 0.82rem; }
+  .signature { height: 1.85rem; }
 
   .hero { padding: 2.5rem 0 2rem; }
   .hero-meta {
