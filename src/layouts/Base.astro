@@ -21,6 +21,30 @@ const socials = [
   { label: "Twitter",  href: site.links.twitter,  show: !!site.links.twitter,  external: true  },
   { label: "Résumé",   href: site.links.resume,   show: !!site.links.resume,   external: false },
 ].filter((l) => l.show);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL("/og.png", Astro.site).toString();
+
+const currentJob = site.experience[0];
+const sameAs = [site.links.github, site.links.linkedin, site.links.twitter].filter(Boolean);
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: Astro.site?.toString(),
+  jobTitle: site.role,
+  description: site.meta.description,
+  image: ogImage,
+  email: site.links.email ? `mailto:${site.links.email}` : undefined,
+  address: site.location ? { "@type": "PostalAddress", addressLocality: site.location } : undefined,
+  worksFor: currentJob ? { "@type": "Organization", name: currentJob.company } : undefined,
+  alumniOf: site.education[0]
+    ? { "@type": "CollegeOrUniversity", name: site.education[0].school }
+    : undefined,
+  knowsAbout: site.skills,
+  sameAs,
+};
 ---
 
 <!doctype html>
@@ -30,11 +54,32 @@ const socials = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={site.meta.description} />
     <meta name="author" content={site.name} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={site.meta.title} />
     <meta property="og:description" content={site.meta.description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={site.meta.title} />
+    <meta name="twitter:description" content={site.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{site.meta.title}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personLd)}
+    ></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
