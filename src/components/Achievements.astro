@@ -3,8 +3,12 @@ import { site } from "../content/site";
 ---
 
 {site.achievements.length > 0 && (
-  <section class="section">
-    <h2>Achievements</h2>
+  <section class="section" id="achievements">
+    <div class="section-head">
+      <span class="eyebrow">05 — Recognition</span>
+      <h2 class="title">Achievements</h2>
+      <span class="rule"></span>
+    </div>
     <ul class="achievements">
       {site.achievements.map((a) => <li>{a}</li>)}
     </ul>

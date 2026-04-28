@@ -1,17 +1,42 @@
 ---
 import { site } from "../content/site";
+
+// split name into two parts for an editorial flourish on the second word
+const parts = site.name.trim().split(/\s+/);
+const lead = parts.slice(0, parts.length - 1).join(" ");
+const tail = parts[parts.length - 1] ?? "";
 ---
 
-<header class="intro">
-  <h1>{site.name}</h1>
-  <p class="role">{site.role} · {site.location}</p>
+<header class="hero">
+  <div class="hero-meta">
+    <span>Portfolio &nbsp;/&nbsp; 2026</span>
+    <span class="dot-sep" aria-hidden="true"></span>
+    <span class="clock">
+      <span class="clock-dot" aria-hidden="true"></span>
+      <span id="local-time">— IST</span>
+    </span>
+    <span class="dot-sep" aria-hidden="true"></span>
+    <span>v2 · Edition 01</span>
+  </div>
+
+  <h1>
+    {lead} <em>{tail}</em>
+  </h1>
+
+  <p class="role-line">
+    <span class="role">{site.role}</span>
+    <span class="sep">·</span>
+    <span class="loc">{site.location}</span>
+  </p>
+
   {site.status && (
     <p class="status">
       <span class="dot" aria-hidden="true"></span>
       {site.status}
     </p>
   )}
-  <div class="bio">
+
+  <div class="hero-bio">
     {site.intro.map((line) => <p>{line}</p>)}
   </div>
 </header>

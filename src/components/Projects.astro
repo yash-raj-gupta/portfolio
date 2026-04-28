@@ -1,12 +1,41 @@
 ---
 import { site } from "../content/site";
+
+const [first, ...rest] = site.projects;
 ---
 
 {site.projects.length > 0 && (
-  <section class="section">
-    <h2>Projects</h2>
+  <section class="section" id="projects">
+    <div class="section-head">
+      <span class="eyebrow">02 — Selected work</span>
+      <h2 class="title">Projects</h2>
+      <span class="rule"></span>
+    </div>
+
     <ul class="projects">
-      {site.projects.map((p) => (
+      {first && (
+        <li class="project project--featured">
+          <div class="project-eyebrow">Featured</div>
+          <div class="project-head">
+            {first.href ? (
+              <a href={first.href} class="project-name" target="_blank" rel="noreferrer">
+                {first.name} <span class="arrow ext">↗</span>
+              </a>
+            ) : (
+              <span class="project-name">{first.name}</span>
+            )}
+            <span class="project-year">{first.year}</span>
+          </div>
+          <p class="project-desc">{first.description}</p>
+          {first.tech.length > 0 && (
+            <ul class="tags project-tags">
+              {first.tech.map((t) => <li class="tag">{t}</li>)}
+            </ul>
+          )}
+        </li>
+      )}
+
+      {rest.map((p) => (
         <li class="project">
           <div class="project-head">
             {p.href ? (

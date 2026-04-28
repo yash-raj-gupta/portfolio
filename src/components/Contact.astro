@@ -11,8 +11,15 @@ const links = [
 ---
 
 {links.length > 0 && (
-  <section class="section">
-    <h2>Contact</h2>
+  <section class="section" id="contact">
+    <div class="section-head">
+      <span class="eyebrow">06 — Say hello</span>
+      <h2 class="title">Get in touch</h2>
+      <span class="rule"></span>
+    </div>
+    <p style="color: var(--fg-soft); max-width: 56ch; margin-bottom: 1.5rem;">
+      Always happy to chat about fintech, data engineering, or AI-powered systems — or to swap notes on a half-finished side project.
+    </p>
     <ul class="links">
       {links.map((l) => (
         <li>

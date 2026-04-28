@@ -3,13 +3,20 @@ import { site } from "../content/site";
 ---
 
 {site.education.length > 0 && (
-  <section class="section">
-    <h2>Education</h2>
+  <section class="section" id="education">
+    <div class="section-head">
+      <span class="eyebrow">03 — Studies</span>
+      <h2 class="title">Education</h2>
+      <span class="rule"></span>
+    </div>
     <ul class="experience">
       {site.education.map((e) => (
         <li>
           <div class="exp-head">
-            <span class="exp-role">{e.degree} · {e.school}</span>
+            <span class="exp-title">
+              <span class="exp-role">{e.degree}</span>
+              <span class="exp-company">· {e.school}</span>
+            </span>
             <span class="exp-period">{e.period}</span>
           </div>
           <p>{e.detail}</p>

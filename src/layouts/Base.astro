@@ -1,6 +1,26 @@
 ---
 import "../styles/global.css";
 import { site } from "../content/site";
+
+const navItems = [
+  { id: "experience", label: "Work", show: site.experience.length > 0 },
+  { id: "projects", label: "Projects", show: site.projects.length > 0 },
+  { id: "education", label: "Education", show: site.education.length > 0 },
+  { id: "skills", label: "Stack", show: site.skills.length > 0 },
+  { id: "achievements", label: "Notes", show: site.achievements.length > 0 },
+  { id: "contact", label: "Contact", show: true },
+].filter((n) => n.show);
+
+const initials = site.name.split(" ").map((p) => p[0]).join("").slice(0, 2);
+const year = new Date().getFullYear();
+
+const socials = [
+  { label: "Email",    href: site.links.email ? `mailto:${site.links.email}` : "", show: !!site.links.email, external: false },
+  { label: "GitHub",   href: site.links.github,   show: !!site.links.github,   external: true  },
+  { label: "LinkedIn", href: site.links.linkedin, show: !!site.links.linkedin, external: true  },
+  { label: "Twitter",  href: site.links.twitter,  show: !!site.links.twitter,  external: true  },
+  { label: "Résumé",   href: site.links.resume,   show: !!site.links.resume,   external: false },
+].filter((l) => l.show);
 ---
 
 <!doctype html>
@@ -19,12 +39,11 @@ import { site } from "../content/site";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
     <script is:inline>
-      // set theme before paint to avoid flash
       (function () {
         try {
           const stored = localStorage.getItem("theme");
@@ -38,19 +57,85 @@ import { site } from "../content/site";
     </script>
   </head>
   <body>
-    <button class="theme-toggle" aria-label="Toggle color theme" id="theme-toggle">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-      </svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-      </svg>
-    </button>
+    <header class="topbar" id="topbar">
+      <div class="topbar-inner">
+        <a href="#top" class="brand" aria-label="Back to top">
+          <span class="monogram">{initials}</span>
+          <span>{site.name}</span>
+        </a>
+        <nav class="nav-mobile-wrap" aria-label="Sections">
+          <ul class="nav-mobile">
+            {navItems.map((n) => (
+              <li><a href={`#${n.id}`} data-target={n.id}>{n.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <button class="theme-toggle" aria-label="Toggle color theme" id="theme-toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </header>
 
-    <main>
-      <slot />
-    </main>
+    <div class="shell" id="top">
+      <slot name="hero" />
+      <div class="layout">
+        <aside class="rail" aria-label="Sidebar">
+          <nav aria-label="Section navigation">
+            <ul class="rail-toc">
+              {navItems.map((n, i) => (
+                <li>
+                  <a href={`#${n.id}`} data-target={n.id}>
+                    <span class="num">{String(i + 1).padStart(2, "0")}</span>
+                    <span>{n.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {socials.length > 0 && (
+            <div class="rail-block">
+              <div class="rail-label">Elsewhere</div>
+              <ul class="rail-socials">
+                {socials.map((s) => (
+                  <li>
+                    <a
+                      href={s.href}
+                      target={s.external ? "_blank" : undefined}
+                      rel={s.external ? "noreferrer" : undefined}
+                    >
+                      <span>{s.label}</span>
+                      <span class="arrow">{s.external ? "↗" : "→"}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </aside>
+
+        <div class="content">
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <span class="left">
+        <span>© {year} {site.name}</span>
+      </span>
+      <span class="right">
+        <span>Built with <a href="https://astro.build" target="_blank" rel="noreferrer">Astro</a></span>
+        <span>·</span>
+        <span>Updated {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+      </span>
+    </footer>
 
     <script>
       const btn = document.getElementById("theme-toggle");
@@ -60,6 +145,50 @@ import { site } from "../content/site";
         root.dataset.theme = next;
         try { localStorage.setItem("theme", next); } catch {}
       });
+
+      const topbar = document.getElementById("topbar");
+      const onScroll = () => {
+        if (!topbar) return;
+        topbar.classList.toggle("is-scrolled", window.scrollY > 4);
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      const navAnchors = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>("[data-target]")
+      );
+      const targets = navAnchors
+        .map((a) => document.getElementById(a.dataset.target!))
+        .filter((el, i, arr): el is HTMLElement => !!el && arr.indexOf(el) === i);
+      if (targets.length && "IntersectionObserver" in window) {
+        const visible = new Map<string, number>();
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) visible.set(e.target.id, e.intersectionRatio);
+              else visible.delete(e.target.id);
+            }
+            const top = [...visible.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+            navAnchors.forEach((a) => {
+              a.classList.toggle("is-active", a.dataset.target === top);
+            });
+          },
+          { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+        );
+        targets.forEach((t) => io.observe(t));
+      }
+
+      // live local time in author's timezone
+      const clock = document.getElementById("local-time");
+      if (clock) {
+        const fmt = new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit", minute: "2-digit", hour12: false,
+          timeZone: "Asia/Kolkata",
+        });
+        const tick = () => { clock.textContent = fmt.format(new Date()) + " IST"; };
+        tick();
+        setInterval(tick, 30_000);
+      }
     </script>
   </body>
 </html>
