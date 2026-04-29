@@ -5,8 +5,11 @@ on:
 
 jobs:
   lighthouse:
-    # Only run when Vercel marks a deployment as live.
-    if: github.event.deployment_status.state == 'success'
+    # Only audit production deployments. Previews are auth-gated by Vercel
+    # and would redirect Lighthouse to the login page.
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.production_environment == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
